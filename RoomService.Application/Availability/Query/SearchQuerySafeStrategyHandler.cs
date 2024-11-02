@@ -35,7 +35,9 @@ public class SearchQuerySafeStrategyHandler
         DateOnly? periodStart = null;
         DateOnly? periodEnd = null;
         int minAvailability = int.MaxValue;
-
+        
+        // prompt: given AvailabilityFor(hotelId, roomId, date) function write a search function body that will search
+        // periods of free slots. When the function returns > 0 that means the room is available. Write it in C#. Iterate over dateRange of `DateOnly`. Return a list of DateRange record DateRange(DateOnly Start, DateOnly End)
         foreach (var date in dateRange)
         {
             var availableRooms = roomsForRequestedType.Sum(room =>
