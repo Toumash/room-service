@@ -46,7 +46,7 @@ public class RoomAvailability
             {
                 MinAvailability =
                     dateRange.AsEnumerable()
-                        .MinBy(date => ra.AvailabilityFor(b.hotelId, room.roomId, date)),
+                        .Min(date => ra.AvailabilityFor(b.hotelId, room.roomId, date)),
                 Days = dateRange.AsEnumerable().Count(),
                 Room = room
             }).ToList();
@@ -77,5 +77,28 @@ public class RoomAvailability
     public int AvailabilityFor(string hotelId, string roomId, DateOnly date)
     {
         return store[hotelId][roomId].ContainsKey(date) ? store[hotelId][roomId][date] : DefaultAvailable;
+    }
+
+    public void Print()
+    {
+        var datesToShow = store.SelectMany(s => s.Value.SelectMany(x => x.Value).Select(x => x.Key)).Distinct().Order()
+            .ToList();
+        Console.WriteLine($"{"dates",7}{string.Join("", datesToShow.Select(d => d.Day))}");
+        foreach ((var hotelId, var rooms) in store)
+        {
+            Console.WriteLine($"--- HOTEL {hotelId} ---");
+            foreach (var (roomId, dates) in rooms)
+            {
+                Console.Write($"r:{roomId,5} |");
+                foreach (var date in datesToShow)
+                {
+                    Console.Write(AvailabilityFor(hotelId, roomId, date));
+                }
+
+                Console.WriteLine();
+            }
+        }
+
+        Console.WriteLine("Legend: 1 = Free, 0 = Taken, -1 = Overbooked");
     }
 }
