@@ -30,9 +30,8 @@ static void RunWithOptions(Options opts)
     var hotels = LoadHotels(opts.HotelsFile);
     var bookings = LoadBookings(opts.BookingsFile);
 
-    // new DateProvider()); // new FakeDateProvider(new DateOnly(2024, 11, 01));
-    var dateProvider =
-        new FakeDateProvider(new DateOnly(2024, 11, 01));
+    // new FakeDateProvider(new DateOnly(2024, 11, 01));
+    var dateProvider = new DateProvider();
 
 
     while (true)
