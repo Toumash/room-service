@@ -13,45 +13,33 @@ public class SearchTests
     {
         var (hotels, bookings) = GetOriginalTestData();
 
-        var response = new SearchQuerySafeStrategyHandler().Handle(new SearchQuery("H1", 365, "SGL"), hotels,
-            bookings, new FakeDateProvider(new DateOnly(2024, 11, 02)));
+        var response =
+            new SearchQueryHandler(hotels, bookings, new FakeDateProvider(new DateOnly(2024, 11, 02)))
+                .Handle(new SearchQuery("H1", 365, "SGL"));
 
         response.Results.ShouldBe(
             [new SearchResult(new DateRange(new DateOnly(2024, 11, 02), new DateOnly(2025, 11, 02)), 2)]);
     }
 
     [Fact]
-    public void SearchSafe_ShouldWorkWithBasicExample2()
-    {
-        var (hotels, bookings) = GetTestData();
-
-        var response = new SearchQuerySafeStrategyHandler().Handle(new SearchQuery("H1", 365, "SGL"), hotels, bookings,
-            new FakeDateProvider(new DateOnly(2024, 11, 01)));
-
-        response.Results.ShouldBe(
-        [
-            new SearchResult(new DateRange(new DateOnly(2024, 11, 01), new DateOnly(2025, 11, 01)), 1),
-        ]);
-    }
-
-    [Fact]
-    public void SearchAggressive_ShouldWorkWithBasicExample()
+    public void ShouldWorkWithBasicExample()
     {
         var (hotels, bookings) = GetOriginalTestData();
 
-        var response = new SearchQuerySafeStrategyHandler().Handle(new SearchQuery("H1", 365, "SGL"), hotels,
-            bookings, new FakeDateProvider(new DateOnly(2024, 11, 02)));
+        var response =
+            new SearchQueryHandler(hotels, bookings, new FakeDateProvider(new DateOnly(2024, 11, 02))).Handle(
+                new SearchQuery("H1", 365, "SGL"));
 
         response.Results.ShouldBe(
             [new SearchResult(new DateRange(new DateOnly(2024, 11, 02), new DateOnly(2025, 11, 02)), 2)]);
     }
 
     [Fact]
-    public void SearchAggressive_ShouldWorkWithBasicExample2()
+    public void ShouldWorkWithBasicExample2()
     {
         var (hotels, bookings) = GetTestData();
 
-        var response = new SearchQueryAggressiveStrategyHandler(hotels,
+        var response = new SearchQueryHandler(hotels,
             bookings, new FakeDateProvider(new DateOnly(2024, 11, 01))).Handle(new SearchQuery("H1", 365, "SGL"));
 
         response.Results.ShouldBe(
@@ -68,7 +56,7 @@ public class SearchTests
         var (hotels, bookings) = GetOverbookedTestData();
 
         var response =
-            new SearchQueryAggressiveStrategyHandler(hotels, bookings, new FakeDateProvider(new DateOnly(2024, 11, 01)))
+            new SearchQueryHandler(hotels, bookings, new FakeDateProvider(new DateOnly(2024, 11, 01)))
                 .Handle(new SearchQuery("H1", 365, "SGL"));
 
         response.Results.ShouldBe(

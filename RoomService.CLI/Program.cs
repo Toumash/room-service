@@ -61,7 +61,7 @@ static void RunWithOptions(Options opts)
                 continue;
             }
 
-            var searchResult = new SearchQueryAggressiveStrategyHandler(hotels, bookings, dateProvider)
+            var searchResult = new SearchQueryHandler(hotels, bookings, dateProvider)
                 .Handle(new SearchQuery(arguments[0], int.Parse(arguments[1]), arguments[2]));
 
             foreach (var result in searchResult.Results)
