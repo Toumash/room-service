@@ -8,14 +8,14 @@ namespace RoomService.Tests;
 public class JsonTests
 {
     [Fact]
-    public void Bookings_ShouldNotThrow()
+    public void ParsingBookings_ShouldNotThrow()
     {
         var a = () => GetTestBookings();
         a.ShouldNotThrow();
     }
 
     [Fact]
-    public void Hotels_ShouldNotThrow()
+    public void ParsingHotels_ShouldNotThrow()
     {
         var a = () => GetTestHotels();
         a.ShouldNotThrow();

@@ -6,8 +6,6 @@ using RoomService.Application.Availability.Query;
 using RoomService.Application.Date;
 using RoomService.Application.Dto;
 
-// NOTE: run using dotnet run
-
 Parser.Default.ParseArguments<Options>(args)
     .WithParsed(RunWithOptions);
 
@@ -30,7 +28,7 @@ static void RunWithOptions(Options opts)
     var hotels = LoadHotels(opts.HotelsFile);
     var bookings = LoadBookings(opts.BookingsFile);
 
-    // new FakeDateProvider(new DateOnly(2024, 11, 01));
+    // NOTE: for testing you can use new FakeDateProvider(new DateOnly(2024, 11, 01));
     var dateProvider = new DateProvider();
 
 
@@ -44,7 +42,7 @@ static void RunWithOptions(Options opts)
         if (!match.Success)
         {
             Console.WriteLine(
-                "Please enter a command. Search(H1,365, SGL) or Availability(H1,20240901, SGL)\nAvailability(H1,20240901-20240903, DBL) ");
+                "Please enter a command. Search(H1,365, SGL) or Availability(H1,20240901, SGL) or Availability(H1,20240901-20240903, DBL) ");
             continue;
         }
 
@@ -59,7 +57,7 @@ static void RunWithOptions(Options opts)
             if (arguments.Count != 3)
             {
                 Console.WriteLine(
-                    "Invalid number of arguments. Please enter a valid command. Search(H1,365, SGL) or Availability(H1,20240901, SGL)\nAvailability(H1,20240901-20240903, DBL)");
+                    "Invalid number of arguments. Please enter a valid command. Search(H1,365, SGL)");
                 continue;
             }
 
@@ -79,7 +77,7 @@ static void RunWithOptions(Options opts)
             if (arguments.Count != 3)
             {
                 Console.WriteLine(
-                    "Invalid number of arguments. Please enter a valid command. Search(H1,365, SGL) or Availability(H1,20240901, SGL)\nAvailability(H1,20240901-20240903, DBL)");
+                    "Invalid number of arguments. Please enter a valid command. Availability(H1,20240901, SGL) or Availability(H1,20240901-20240903, DBL)");
                 continue;
             }
 
@@ -97,7 +95,7 @@ static void RunWithOptions(Options opts)
 
         {
             Console.WriteLine(
-                "Unknown command. Please enter a valid command. Search(H1,365, SGL) or Availability(H1,20240901, SGL)\nAvailability(H1,20240901-20240903, DBL) ");
+                "Unknown command. Please enter a valid command. Search(H1,365, SGL) or Availability(H1,20240901, SGL) or Availability(H1,20240901-20240903, DBL) ");
             continue;
         }
     }
