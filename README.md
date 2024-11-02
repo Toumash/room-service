@@ -4,11 +4,15 @@
 
 ## How to run?
 
+**Using ready docker image:**
+
+1. `docker run -it ghcr.io/toumash/room-service-cli:3add639691e501ff3ffb93594e237d1ac7fdbf18 --hotels hotels.json --bookings bookings.json`
+
 **Using docker:**
 
 1. Place the `hotels.json` and `bookings.json` files inside `RoomService.CLI` directory
-1. `docker build -t room-service -f RoomService.CLI\Dockerfile .`
-1. `docker run -it room-service --hotels hotels.json --bookings bookings.json`
+2. `docker build -t room-service -f RoomService.CLI\Dockerfile .`
+3. `docker run -it room-service --hotels hotels.json --bookings bookings.json`
 
 **Using .net 8 installed on the system:**
 
